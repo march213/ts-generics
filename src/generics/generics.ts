@@ -62,4 +62,4 @@ const myKangaroo = new Kangaroo()
 
 printLegCount(myCat)
 printLegCount(myKangaroo)
-printLegCount(new Bacteria()) // Argument of type 'Bacteria' is not assignable to parameter of type 'Animal'.
+// printLegCount(new Bacteria()) // Argument of type 'Bacteria' is not assignable to parameter of type 'Animal'.
