@@ -29,3 +29,37 @@ function sortByKey<T>(data: T[], key: keyof T) {
 
 // usage
 sortByKey<IFooBar>(fooBars, 'foo')
+
+// Another example
+class Animal {
+  public legsCount: number
+
+  constructor(legsCount: number) {
+    this.legsCount = legsCount
+  }
+}
+
+class Cat extends Animal {
+  constructor() {
+    super(4)
+  }
+}
+
+class Kangaroo extends Animal {
+  constructor() {
+    super(2)
+  }
+}
+
+class Bacteria {}
+
+function printLegCount<T extends Animal>(animal: T) {
+  console.log(`My leg count is ${animal.legsCount}`)
+}
+
+const myCat = new Cat()
+const myKangaroo = new Kangaroo()
+
+printLegCount(myCat)
+printLegCount(myKangaroo)
+printLegCount(new Bacteria()) // Argument of type 'Bacteria' is not assignable to parameter of type 'Animal'.
