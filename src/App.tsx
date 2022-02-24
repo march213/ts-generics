@@ -8,6 +8,14 @@ import { genericSearch } from './utils/genericSearch';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState<string>('')
+
+  const filteredWidgets = widgets.filter((widget) =>
+    genericSearch<IWidget>(widget, ['title', 'description'], searchQuery),
+  )
+  const filteredPeople = people.filter((person) =>
+    genericSearch(person, ['firstName', 'lastName', 'eyeColor'], searchQuery),
+  )
+
   return (
     <div className="min-h-full">
       <main className="py-8">
@@ -17,21 +25,17 @@ function App() {
         <div className="flex flex-col sm:flex-row max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="min-w-[50%]">
             <h2 className="text-3xl font-bold mb-6">Widgets:</h2>
-            {widgets
-              .filter((widget) => genericSearch<IWidget>(widget, ['title', 'description'], searchQuery))
-              .map((widget) => (
-                <div key={widget.id}>{widget.title}</div>
-              ))}
+            {filteredWidgets.map((widget) => (
+              <div key={widget.id}>{widget.title}</div>
+            ))}
           </div>
           <div className="min-w-[50%]">
             <h2 className="text-3xl font-bold mb-6">People:</h2>
-            {people
-              .filter((person) => genericSearch(person, ['firstName', 'lastName', 'eyeColor'], searchQuery))
-              .map((person) => (
-                <div key={person.lastName}>
-                  {person.firstName} {person.lastName}
-                </div>
-              ))}
+            {filteredPeople.map((person) => (
+              <div key={person.lastName}>
+                {person.firstName} {person.lastName}
+              </div>
+            ))}
           </div>
         </div>
       </main>

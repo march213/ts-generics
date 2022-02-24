@@ -12,8 +12,7 @@ export const SearchInput: FC<ISearchInputProps> = ({ setSearchQuery }) => {
 
   useEffect(() => {
     setSearchQuery(debouncedSearchValue)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearchValue])
+  }, [debouncedSearchValue, setSearchQuery])
 
   return (
     <>
