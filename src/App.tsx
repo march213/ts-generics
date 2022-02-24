@@ -8,7 +8,6 @@ import { genericSearch } from './utils/genericSearch';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState<string>('')
-
   return (
     <div className="min-h-full">
       <main className="py-8">
