@@ -10,6 +10,13 @@ import { widgets } from './mock-data/widgets';
 import { genericSearch } from './utils/genericSearch';
 import { genericSort } from './utils/genericSort';
 
+const options: Intl.DateTimeFormatOptions = {
+  weekday: 'short',
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+}
+
 function App() {
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [{ property: widgetSortProperty }, setWidgetProperty] = useState<IProperty<IWidget>>({ property: 'title' })
@@ -39,22 +46,44 @@ function App() {
           <div className="min-w-[50%]">
             <h2 className="text-3xl font-bold mb-6">Widgets:</h2>
             <Sorters object={widgets[0]} setProperty={(property) => setWidgetProperty({ property })} />
-            <div className="mt-6">
+            <ul className="divide-y divide-gray-200 mr-12">
               {sortedWidgets.map((widget) => (
-                <div key={widget.id}>{widget.title}</div>
+                <li key={widget.id} className={`py-4 flex ${widget.isSpecialCard ? 'bg-emerald-100' : ''}`}>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-gray-900">ID: {widget.id}</p>
+                    <p className="text-sm text-gray-500">Title: {widget.title}</p>
+                    <p className="text-sm text-gray-500">Description: {widget.description}</p>
+                    <p className="text-sm text-gray-500">⭐️: 1/{widget.rating}</p>
+                    <p className="text-sm text-gray-500">
+                      {widget.created.toLocaleDateString('en-US', options)} /{' '}
+                      {widget.updated.toLocaleDateString('en-US', options)}
+                    </p>
+                    <p className="text-sm text-gray-500">IsSpecialCard: {widget.isSpecialCard.toString()}</p>
+                  </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
+
           <div className="min-w-[50%]">
             <h2 className="text-3xl font-bold mb-6">People:</h2>
             <Sorters object={people[0]} setProperty={(property) => setPeopleProperty({ property })} />
-            <div className="mt-6">
+            <ul className="divide-y divide-gray-200">
               {sortedPeople.map((person) => (
-                <div key={person.lastName}>
-                  {person.firstName} {person.lastName}
-                </div>
+                <li key={`${person.firstName}-${person.lastName}`} className="py-4 flex">
+                  <span className="h-10 w-10 rounded-full text-lg">
+                    {['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼'][Math.floor(Math.random() * 7)]}
+                  </span>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-gray-900">
+                      {person.firstName} {person.lastName}
+                    </p>
+                    <p className="text-sm text-gray-500">🎂: {person.birthday.toLocaleDateString('en-US', options)}</p>
+                    <p className="text-sm text-gray-500">👁: {person.eyeColor}</p>
+                  </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
       </main>
