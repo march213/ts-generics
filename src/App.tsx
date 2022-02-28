@@ -38,7 +38,7 @@ function App() {
         <div className="flex flex-col sm:flex-row max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="min-w-[50%]">
             <h2 className="text-3xl font-bold mb-6">Widgets:</h2>
-            <Sorters object={widgets[0]} />
+            <Sorters object={widgets[0]} setProperty={(property) => setWidgetProperty({ property })} />
             <div className="mt-6">
               {sortedWidgets.map((widget) => (
                 <div key={widget.id}>{widget.title}</div>
@@ -47,7 +47,7 @@ function App() {
           </div>
           <div className="min-w-[50%]">
             <h2 className="text-3xl font-bold mb-6">People:</h2>
-            <Sorters object={people[0]} />
+            <Sorters object={people[0]} setProperty={(property) => setPeopleProperty({ property })} />
             <div className="mt-6">
               {sortedPeople.map((person) => (
                 <div key={person.lastName}>
