@@ -5,6 +5,7 @@ import { IWidget } from './interfaces/IWidget';
 import { people } from './mock-data/people';
 import { widgets } from './mock-data/widgets';
 import { genericSearch } from './utils/genericSearch';
+import { genericSort } from './utils/genericSort';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -15,6 +16,9 @@ function App() {
   const filteredPeople = people.filter((person) =>
     genericSearch(person, ['firstName', 'lastName', 'eyeColor'], searchQuery),
   )
+  const sortedWidgets = filteredWidgets.sort((a, b) => {
+    return genericSort(a, b, 'title')
+  })
 
   return (
     <div className="min-h-full">
